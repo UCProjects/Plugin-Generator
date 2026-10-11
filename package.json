@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "repository": "UCProjects/plugin-generator",
-  "homepage": "https://github.com/UCProjects/plugin-generator",
+  "repository": "UCProjects/Plugin-Generator",
+  "homepage": "https://github.com/UCProjects/Plugin-Generator",
   "keywords": [
     "underscript",
     "underscript-plugin",

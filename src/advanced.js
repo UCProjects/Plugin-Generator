@@ -87,7 +87,7 @@ export function projectReadme({ name, description, repository, releases, types, 
   }
   lines.push(
     '',
-    'To run your build in the browser, follow [Try it in your browser](https://github.com/UCProjects/plugin-template#try-it-in-your-browser).',
+    'To run your build in the browser, follow [Try it in your browser](https://github.com/UCProjects/Plugin-Template#try-it-in-your-browser).',
     '',
     'The userscript header is generated from [package.json](package.json). Extra tags go in its `userscript` object.',
   );

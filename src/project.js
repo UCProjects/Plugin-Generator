@@ -84,7 +84,7 @@ export function simpleReadme({ name, description, file, types, lint }) {
   if (lint) lines.push('- `npm run lint` checks the code style');
   lines.push(
     '',
-    `To run the file straight from this folder in the browser, follow [Try it in your browser](https://github.com/UCProjects/plugin-template#try-it-in-your-browser) and point it at \`${file}\`.`,
+    `To run the file straight from this folder in the browser, follow [Try it in your browser](https://github.com/UCProjects/Plugin-Template#try-it-in-your-browser) and point it at \`${file}\`.`,
   );
   return `${lines.join('\n')}\n`;
 }

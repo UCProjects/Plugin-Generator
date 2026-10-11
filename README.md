@@ -3,12 +3,18 @@
 Set up a new [UnderScript](https://feildmaster.github.io/UnderScript/) plugin by answering a few questions.
 
 ```sh
-npx github:ucprojects/plugin-generator
+npx github:UCProjects/Plugin-Generator
 ```
 
-Always include the `github:` part. A bare `npx plugin-generator` downloads an unrelated package from the npm registry that happens to have that name.
+Always include the owner, `UCProjects/`. A bare `npx plugin-generator` downloads an unrelated package from the npm registry that happens to have that name. The `github:` prefix is optional, so `npx UCProjects/Plugin-Generator` works too.
 
-You need [Node.js](https://nodejs.org/) (24 is recommended) and [git](https://git-scm.com/). The generator downloads the latest [plugin template](https://github.com/UCProjects/plugin-template) every time it runs, so what you get is never out of date.
+The first time, npm asks `Ok to proceed?` before it installs the package. That question is npm's, and it comes before the generator starts. Answer `y`, or add `-y` to skip it:
+
+```sh
+npx -y github:UCProjects/Plugin-Generator
+```
+
+You need [Node.js](https://nodejs.org/) (24 is recommended) and [git](https://git-scm.com/). The generator downloads the latest [plugin template](https://github.com/UCProjects/Plugin-Template) every time it runs, so what you get is never out of date.
 
 ## What it asks
 
@@ -37,7 +43,7 @@ Whatever you decline is deleted from the result, and the readme it writes only d
 Pass any answer as an option, and add `--yes` to use the defaults for the rest:
 
 ```sh
-npx github:ucprojects/plugin-generator --yes --mode advanced --name "My Plugin" --author "Your Name" --repository you/my-plugin
+npx github:UCProjects/Plugin-Generator --yes --mode advanced --name "My Plugin" --author "Your Name" --repository you/my-plugin
 ```
 
 | Option | |

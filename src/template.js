@@ -1,7 +1,7 @@
 import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 
-export const TEMPLATE_URL = 'https://github.com/UCProjects/plugin-template';
+export const TEMPLATE_URL = 'https://github.com/UCProjects/Plugin-Template';
 
 export function gitUser() {
   try {
