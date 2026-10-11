@@ -1,0 +1,28 @@
+{
+  "name": "underscript-plugin-generator",
+  "version": "1.0.0",
+  "description": "Set up a new UnderScript plugin from the plugin template",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "repository": "UCProjects/plugin-generator",
+  "homepage": "https://github.com/UCProjects/plugin-generator",
+  "keywords": [
+    "underscript",
+    "underscript-plugin",
+    "generator"
+  ],
+  "bin": {
+    "underscript-plugin-generator": "bin/plugin-generator.js"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
