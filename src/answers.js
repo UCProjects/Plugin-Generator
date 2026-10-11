@@ -41,7 +41,7 @@ export async function collect(options, prompt, { author: known = '', nameCheck =
     mode = ask
       ? await prompt.choice('What do you want to make?', [
         { value: 'simple', label: 'Simple', hint: 'one script file to paste into Tampermonkey' },
-        { value: 'advanced', label: 'Advanced', hint: 'a project with a build, linting and releases' },
+        { value: 'advanced', label: 'Advanced', hint: 'a full project with several files, editor autocomplete, code checking and releases' },
       ], 0)
       : 'simple';
   }

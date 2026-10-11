@@ -22,7 +22,7 @@ In a terminal, choices are arrow-key menus: up and down to move, Enter to pick, 
 
 1. **Simple or Advanced**
    - **Simple** is one script file that you edit by hand and paste into Tampermonkey. There is no build.
-   - **Advanced** is a project with a build, linting and a userscript header generated from `package.json`.
+   - **Advanced** is a full project. Your code can be split across several files, and it comes with editor autocomplete, code checking and automatic releases if you want them.
 1. **Your plugin's name, description, author and version.** The name is checked against the same rules UnderScript enforces: letters, numbers and spaces, at most 20 characters.
 1. **Simple only:** a link to where you will host the file (optional).
 1. **Editor autocomplete and type checking?** Both modes ask this.
