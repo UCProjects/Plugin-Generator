@@ -7,7 +7,7 @@ import {
   versionProblem,
 } from './names.js';
 
-export async function collect(options, prompt, { author: known = '', nameCheck = () => undefined } = {}) {
+export async function collect(options, prompt, { author: known = '', nameCheck = nameProblem } = {}) {
   const ask = !options.yes;
 
   async function field(given, question, config = {}) {
@@ -30,11 +30,9 @@ export async function collect(options, prompt, { author: known = '', nameCheck =
     return ask ? prompt.confirm(question, fallback) : fallback;
   }
 
-  if (options.name !== undefined) {
-    const given = single(options.name);
-    const problem = nameProblem(given) ?? nameCheck(given);
-    if (problem) throw new Error(`Plugin name: ${problem}`);
-  }
+  const providedName = options.name === undefined
+    ? undefined
+    : await field(options.name, 'Plugin name', { validate: nameCheck });
 
   let { mode } = options;
   if (mode === undefined) {
@@ -47,31 +45,28 @@ export async function collect(options, prompt, { author: known = '', nameCheck =
   }
 
   const answers = { mode };
-  answers.name = await field(options.name, 'Plugin name', {
+  answers.name = providedName ?? await field(undefined, 'Plugin name', {
     fallback: 'My Plugin',
-    validate: (value) => nameProblem(value) ?? nameCheck(value),
+    validate: nameCheck,
   });
   answers.description = await field(options.description, 'Description (optional)');
   answers.author = await field(options.author, 'Author', { fallback: known, validate: authorProblem });
   answers.version = await field(options.version, 'Version', { fallback: '1.0.0', validate: versionProblem });
 
-  if (mode === 'simple') {
+  const advanced = mode === 'advanced';
+  if (advanced) {
+    answers.repository = await field(options.repository, 'GitHub repository, owner/repo (optional)', {
+      validate: repositoryProblem,
+    });
+    answers.releases = await yesNo(options.releases, 'Publish through GitHub releases?', true);
+  } else {
     answers.url = await field(options.url, 'Link to your file (optional)', { validate: urlProblem });
-    answers.types = await yesNo(options.types, 'Set up editor autocomplete and type checking?', true);
-    answers.lint = await yesNo(options.lint, 'Set up ESLint to check your code style?', false);
-    const project = answers.types || answers.lint;
-    answers.git = project ? await yesNo(options.git, 'Start a git repository?', true) : false;
-    answers.install = project ? await yesNo(options.install, 'Run npm install now?', true) : false;
-    return answers;
   }
 
-  answers.repository = await field(options.repository, 'GitHub repository, owner/repo (optional)', {
-    validate: repositoryProblem,
-  });
-  answers.releases = await yesNo(options.releases, 'Publish through GitHub releases?', true);
   answers.types = await yesNo(options.types, 'Set up editor autocomplete and type checking?', true);
-  answers.lint = await yesNo(options.lint, 'Set up ESLint to check your code style?', true);
-  answers.git = await yesNo(options.git, 'Start a git repository?', true);
-  answers.install = await yesNo(options.install, 'Run npm install now?', true);
+  answers.lint = await yesNo(options.lint, 'Set up ESLint to check your code style?', advanced);
+  const project = advanced || answers.types || answers.lint;
+  answers.git = project ? await yesNo(options.git, 'Start a git repository?', true) : false;
+  answers.install = project ? await yesNo(options.install, 'Run npm install now?', true) : false;
   return answers;
 }

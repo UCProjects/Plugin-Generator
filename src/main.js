@@ -12,7 +12,7 @@ import {
 } from './advanced.js';
 import { collect } from './answers.js';
 import { parse, USAGE } from './args.js';
-import { slugify } from './names.js';
+import { nameProblem, slugify } from './names.js';
 import { createPrompt } from './prompt.js';
 import { fillSingleFile, missingTokens, SINGLE_FILE } from './simple.js';
 import { fetchTemplate, gitUser, TEMPLATE_URL } from './template.js';
@@ -164,9 +164,10 @@ export async function main(argv, {
     prompt.say();
     const answers = await collect(options, prompt, {
       author: gitUser(),
-      nameCheck: (name) => (isAvailableSync(folderFor(name))
-        ? undefined
-        : `${folderFor(name)} already exists and is not empty. Pick another name.`),
+      nameCheck: (name) => nameProblem(name)
+        ?? (isAvailableSync(folderFor(name))
+          ? undefined
+          : `${folderFor(name)} already exists and is not empty. Pick another name.`),
     });
     const dir = folderFor(answers.name);
     if (!await isAvailable(dir)) throw new Error(`${dir} already exists and is not empty.`);
